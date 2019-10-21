@@ -1,2 +1,2 @@
 # Lets-Get-This-Bread
-Grade 12 Computer Science Game Project - Simple 2D Platformer Concept
+Grade 12 Computer Science Game Project - Simple 2D Platformer Concept using Object-Oriented Programming in Java.
