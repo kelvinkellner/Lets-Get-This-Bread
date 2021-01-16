@@ -3,7 +3,7 @@ package kelvinkellner.ducks.sprites.creatures.enemies;
 import java.util.Random;
 
 import kelvinkellner.ducks.sprites.creatures.WalkingEnemy;
-import kelvinkellner.ducks.sprites.items.Grain;
+import kelvinkellner.ducks.sprites.items.Bread;
 import kelvinkellner.ducks.sprites.items.HealingBerry;
 
 public class Fox extends WalkingEnemy {
@@ -26,7 +26,7 @@ public class Fox extends WalkingEnemy {
 			specialDrop = true;
 		else
 			specialDrop = false;
-		grainDrop = random.nextInt(maxGrain - minGrain + 1) + minGrain;
+		breadDrop = random.nextInt(maxGrain - minGrain + 1) + minGrain;
 		
 		super.walkMin = 2;
 		super.walkMax = 8;
@@ -34,8 +34,8 @@ public class Fox extends WalkingEnemy {
 	
 	public void kill()
 	{
-		System.out.println(grainDrop + " grain dropped.");
-		super.drop(new Grain(0,0,grainDrop));
+		System.out.println(breadDrop + " grain dropped.");
+		super.drop(new Bread(0,0,breadDrop));
 		if(specialDrop)
 			super.drop(new HealingBerry(0,0)); // CHANGE THE CONSTRUCTOR NAME TO CHANGE SPECIAL DROP
 		super.kill();

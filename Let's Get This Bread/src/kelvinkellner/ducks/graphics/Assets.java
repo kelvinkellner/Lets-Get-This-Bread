@@ -24,8 +24,8 @@ public class Assets {
 	public static Animation turtle = SpriteSheet.createAnimation("test", 60);
 	
 	// Bread
-	public static Animation grainDrop = SpriteSheet.createAnimation("GrainDrop", 6000);
-	public static Animation grainDropFalling = SpriteSheet.createAnimation("GrainDropFalling", 60);
+	public static Animation breadDrop = SpriteSheet.createAnimation("BreadDrop", 6000);
+	public static Animation breadDropFalling = SpriteSheet.createAnimation("BreadDropFalling", 60);
 	
 	// Items
 	public static Animation omega3FishOil = SpriteSheet.createAnimation("Omega3FishOil", 6000);

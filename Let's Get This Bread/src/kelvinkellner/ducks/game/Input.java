@@ -72,14 +72,14 @@ public class Input implements KeyListener {
 			if(player.vx < 0)
 				player.vx = 0;
 		}
-		else if(e.getKeyCode() == RIGHT)
+		if(e.getKeyCode() == RIGHT)
 		{
 			if(player.vx > 0)
 				player.vx = 0;
 		}
-		else if(e.getKeyCode() == ATTACK)
+		if(e.getKeyCode() == ATTACK)
 			player.attacking = false;
-		else if(e.getKeyCode() == JUMP)
+		if(e.getKeyCode() == JUMP)
 			player.vy--;
 	}
 

@@ -3,7 +3,7 @@ package kelvinkellner.ducks.sprites.creatures.enemies;
 import java.util.Random;
 
 import kelvinkellner.ducks.sprites.creatures.WalkingEnemy;
-import kelvinkellner.ducks.sprites.items.Grain;
+import kelvinkellner.ducks.sprites.items.Bread;
 
 public class SnappingTurtle extends WalkingEnemy {
 	
@@ -19,7 +19,7 @@ public class SnappingTurtle extends WalkingEnemy {
 	public SnappingTurtle(int x, int y) {
 		super(x, y, health, strength, accuracy, speed, "SnappingTutle"); // Health, Strength, Accuracy, Speed
 		Random random = new Random();
-		grainDrop = random.nextInt(maxGrain - minGrain + 1) + minGrain;
+		breadDrop = random.nextInt(maxGrain - minGrain + 1) + minGrain;
 		
 		super.walkMin = 4;
 		super.walkMax = 8;
@@ -27,7 +27,7 @@ public class SnappingTurtle extends WalkingEnemy {
 	
 	public void kill()
 	{
-		super.drop(new Grain(0,0,grainDrop));
+		super.drop(new Bread(0,0,breadDrop));
 		super.kill();
 	}
 

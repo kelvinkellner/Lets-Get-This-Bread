@@ -12,7 +12,7 @@ import kelvinkellner.ducks.graphics.Assets;
 import kelvinkellner.ducks.sprites.Block;
 import kelvinkellner.ducks.sprites.Sprite;
 import kelvinkellner.ducks.sprites.creatures.Creature;
-import kelvinkellner.ducks.sprites.items.Grain;
+import kelvinkellner.ducks.sprites.items.Bread;
 import kelvinkellner.ducks.sprites.items.HealingBerry;
 import kelvinkellner.ducks.sprites.items.Omega3FishOil;
 import kelvinkellner.ducks.sprites.items.DuckNip;
@@ -163,7 +163,7 @@ public class Game implements Runnable {
 					stage.player.attack(stage.enemies.get(i));
 					if(stage.enemies.get(i).getHealth()==0)
 					{
-						stage.items.add(stage.enemies.get(i).drop(new Grain(0, 0, stage.enemies.get(i).grainDrop)));
+						stage.items.add(stage.enemies.get(i).drop(new Bread(0, 0, stage.enemies.get(i).breadDrop)));
 						stage.sprites.add(stage.items.get(stage.items.size()-1));
 						if(stage.enemies.get(i).specialDrop)
 						{
@@ -191,8 +191,8 @@ public class Game implements Runnable {
 		{
 			if(Sprite.collides(stage.player, stage.items.get(i)))
 			{
-				if(stage.items.get(i).type == "Grain")
-					((Grain) stage.items.get(i)).use(stage.player);
+				if(stage.items.get(i).type == "Bread")
+					((Bread) stage.items.get(i)).use(stage.player);
 				else if(stage.items.get(i).type == "Omega3FishOil")
 					((Omega3FishOil) stage.items.get(i)).use(stage.player);
 				else if(stage.items.get(i).type == "DuckNip")
@@ -501,12 +501,12 @@ public class Game implements Runnable {
 	{
 		for(int i=0; i<stage.items.size(); i++)
 		{
-			if(stage.items.get(i).type == "Grain")
+			if(stage.items.get(i).type == "Bread")
 			{
 				if(stage.items.get(i).vy == 0)
-					renderAnySprite(g, stage.items.get(i), Assets.grainDrop);
+					renderAnySprite(g, stage.items.get(i), Assets.breadDrop);
 				else
-					renderAnySprite(g, stage.items.get(i), Assets.grainDropFalling);
+					renderAnySprite(g, stage.items.get(i), Assets.breadDropFalling);
 			}
 			else if(stage.items.get(i).type == "Omega3FishOil")
 				renderAnySprite(g, stage.items.get(i), Assets.omega3FishOil);
@@ -595,7 +595,7 @@ public class Game implements Runnable {
 		
 		g.drawString("Health: " + stage.player.getHealth() + "/" + stage.player.getMaxHealth(), padding + 5 + (this.width/widthRatio)/4, padding + 10 + 5);
 		
-		g.drawString("Grains: " + stage.player.getBread(), 3*padding + this.width/widthRatio, padding + 15);
+		g.drawString("Bread: " + stage.player.getBread(), 3*padding + this.width/widthRatio, padding + 15);
 		
 		g.drawString("Jumps left: " + (5-stage.player.jumpsInARow), 3*padding + this.width/widthRatio, padding + 30);
 		

@@ -15,7 +15,7 @@ import kelvinkellner.ducks.sprites.creatures.enemies.Eagle;
 import kelvinkellner.ducks.sprites.creatures.enemies.Fox;
 import kelvinkellner.ducks.sprites.creatures.enemies.SnappingTurtle;
 import kelvinkellner.ducks.sprites.items.DuckNip;
-import kelvinkellner.ducks.sprites.items.Grain;
+import kelvinkellner.ducks.sprites.items.Bread;
 import kelvinkellner.ducks.sprites.items.HealingBerry;
 import kelvinkellner.ducks.sprites.items.Item;
 import kelvinkellner.ducks.sprites.items.Omega3FishOil;
@@ -103,7 +103,7 @@ public class Stage {
 					// Items
 					else if(letter=='B')
 					{
-						items.add(new Grain(x, y, 5));
+						items.add(new Bread(x, y, 5));
 						sprites.add(items.get(items.size()-1));
 					}
 					else if(letter=='O')

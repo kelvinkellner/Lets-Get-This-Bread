@@ -3,7 +3,7 @@ package kelvinkellner.ducks.sprites.creatures.enemies;
 import java.util.Random;
 
 import kelvinkellner.ducks.sprites.creatures.WalkingEnemy;
-import kelvinkellner.ducks.sprites.items.Grain;
+import kelvinkellner.ducks.sprites.items.Bread;
 import kelvinkellner.ducks.sprites.items.HealingBerry;
 
 public class Crocodile extends WalkingEnemy {
@@ -26,7 +26,7 @@ public class Crocodile extends WalkingEnemy {
 			specialDrop = true;
 		else
 			specialDrop = false;
-		grainDrop = random.nextInt(maxGrain - minGrain + 1) + minGrain;
+		breadDrop = random.nextInt(maxGrain - minGrain + 1) + minGrain;
 		
 		super.walkMin = 0;
 		super.walkMax = 1;
@@ -34,7 +34,7 @@ public class Crocodile extends WalkingEnemy {
 	
 	public void kill()
 	{
-		super.drop(new Grain(0,0,grainDrop));
+		super.drop(new Bread(0,0,breadDrop));
 		if(specialDrop)
 			super.drop(new HealingBerry(0,0)); // CHANGE THE CONSTRUCTOR NAME TO CHANGE SPECIAL DROP
 		super.kill();

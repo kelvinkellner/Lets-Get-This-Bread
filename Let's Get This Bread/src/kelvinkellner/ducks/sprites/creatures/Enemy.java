@@ -6,7 +6,7 @@ public class Enemy extends Creature {
 	
 	// Non-Static Variables
 	
-	public int grainDrop;
+	public int breadDrop;
 	public boolean specialDrop;
 	public String type;
 	
