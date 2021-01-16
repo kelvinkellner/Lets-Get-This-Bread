@@ -1,3 +1,4 @@
+
 package kelvinkellner.ducks.game;
 
 import java.awt.event.KeyEvent;

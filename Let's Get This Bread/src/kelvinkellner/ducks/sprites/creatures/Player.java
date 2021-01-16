@@ -18,7 +18,7 @@ public class Player extends Creature {
 	// Constructor Methods
 	public Player(int x, int y, int bread)
 	{
-		super(x, y, 10, 2, 0.80, 15); // Health, Strength, Accuracy, Speed
+		super(x, y, 10, 2, 0.80, 18); // Health, Strength, Accuracy, Speed
 		this.bread = bread;
 		this.jumpSpeed = 5;
 		this.items = new Item[0];

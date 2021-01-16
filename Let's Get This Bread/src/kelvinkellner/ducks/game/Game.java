@@ -9,7 +9,9 @@ import java.util.Random;
 
 import kelvinkellner.ducks.graphics.Animation;
 import kelvinkellner.ducks.graphics.Assets;
+import kelvinkellner.ducks.sprites.Block;
 import kelvinkellner.ducks.sprites.Sprite;
+import kelvinkellner.ducks.sprites.creatures.Creature;
 import kelvinkellner.ducks.sprites.items.Grain;
 import kelvinkellner.ducks.sprites.items.HealingBerry;
 import kelvinkellner.ducks.sprites.items.Omega3FishOil;
@@ -137,13 +139,11 @@ public class Game implements Runnable {
 		specialDecay();
 		
 		// Render Graphics
-		renderBounds(g);
+		//renderBounds(g); // render collision boxes
 		renderBlocks(g);
 		renderItems(g);
 		renderCreatures(g);
 		renderGUI(g);
-		
-		// Player Powerups
 		
 		// Reset Graphics
 		bs.show();
@@ -175,6 +175,12 @@ public class Game implements Runnable {
 								stage.items.add(stage.enemies.get(i).drop(new HealingBerry(0,0)));
 							stage.sprites.add(stage.items.get(stage.items.size()-1));
 						}
+						Creature gone = stage.enemies.get(i);
+						stage.enemies.remove(i);
+						if(stage.creatures.contains(gone))
+							stage.creatures.remove(gone);
+						if(stage.sprites.contains(gone))
+							stage.sprites.remove(gone);
 					}
 				}
 			}
@@ -214,7 +220,6 @@ public class Game implements Runnable {
 			}
 		}
 		s.moveBounds(0, -1);
-		
 		return touching;
 	}
 	
@@ -226,26 +231,28 @@ public class Game implements Runnable {
 		
 		for(int i=0; i<stage.creatures.size(); i++)
 		{
-			if(stage.creatures.get(i).vx<0)
-				stage.creatures.get(i).facing = -1;
-			else if(stage.creatures.get(i).vx>0)
-				stage.creatures.get(i).facing = 1;
+			Creature c = stage.creatures.get(i);
 			
-			if(stage.creatures.get(i).facing == stage.creatures.get(i).lastFacing && stage.creatures.get(i).vx != 0)
-				stage.creatures.get(i).hold += 0.005;
+			if(c.vx<0)
+				c.facing = -1;
+			else if(c.vx>0)
+				c.facing = 1;
+			
+			if(c.facing == c.lastFacing && c.vx != 0)
+				c.hold += 0.2;
 			else
-				stage.creatures.get(i).hold = 0.00;
+				c.hold = 0.00;
 			
-			if(stage.creatures.get(i).hold > maxSpeedMult-1.0)
-				stage.creatures.get(i).hold = maxSpeedMult-1.0;
+			if(c.hold > maxSpeedMult-1.0)
+				c.hold = maxSpeedMult-1.0;
 			
-			stage.creatures.get(i).lastFacing = stage.creatures.get(i).facing;
+			c.lastFacing = c.facing;
 			
-			if(stage.creatures.get(i).vx != 0)
-				stage.creatures.get(i).vx *= 1 + stage.player.hold;
+			if(c.vx != 0)
+				c.vx *= 1 + c.hold;
 			
-			if(stage.creatures.get(i).vx > stage.creatures.get(i).speed/5 || stage.creatures.get(i).vx < -stage.creatures.get(i).speed/5)
-				stage.creatures.get(i).vx = stage.creatures.get(i).speed/5 * stage.creatures.get(i).facing;
+			if(c.vx > c.speed/5 || c.vx < -c.speed/5)
+				c.vx = c.speed/5 * c.facing;
 		}
 		
 		// Move Player
@@ -255,7 +262,7 @@ public class Game implements Runnable {
 		// Move Enemies
 		for(int i=0; i<stage.enemies.size(); i++)
 		{
-			System.out.println(stage.enemies.get(i).newWalkHoldTime());
+			//System.out.println(stage.enemies.get(i).newWalkHoldTime());
 			if(stage.enemies.get(i).isVisible())
 			{
 				// Walking
@@ -299,7 +306,6 @@ public class Game implements Runnable {
 					}
 					else
 					{
-						System.out.println("yup");
 						// Stop Between Strides
 						stage.enemies.get(i).vx = 0;
 						stage.enemies.get(i).walkHoldTime = random.nextInt(2*60)+30;
@@ -334,18 +340,27 @@ public class Game implements Runnable {
 		// Fix Creature Movement Errors
 		for(int i=0; i<stage.creatures.size(); i++)
 		{
+			Creature c = stage.creatures.get(i);
 			// Creature exited the sides of the stage
-			if(stage.creatures.get(i).getBounds().x < 0 || stage.creatures.get(i).getBounds().x+stage.creatures.get(i).getBounds().width > stage.stageWidth)
-				stage.creatures.get(i).move(-(int)(1 + stage.creatures.get(i).hold) * stage.creatures.get(i).vx, 0);
+//			if(stage.creatures.get(i).getBounds().x < 0 || stage.creatures.get(i).getBounds().x+stage.creatures.get(i).getBounds().width > stage.stageWidth)
+//				stage.creatures.get(i).move(-(int)(1 + stage.creatures.get(i).hold) * stage.creatures.get(i).vx, 0);
+			while(c.getBounds().x < 0) {
+				c.move(1, 0);
+			}
+			while(c.getBounds().x+c.getBounds().width > stage.stageWidth) {
+				c.move(-1, 0);
+			}
 			
 			// Creature hit a solid block
 			for(int j=0;j<stage.blocks.size();j++)
 			{
-				if(stage.blocks.get(i).solid)
+				Block b = stage.blocks.get(i);
+				if(b.solid)
 				{
-					if(Sprite.collides(stage.creatures.get(i), stage.blocks.get(j)))
+					if(Sprite.collides(c, b))
 					{
-						stage.creatures.get(i).move(-(int)(1 + stage.creatures.get(i).hold) * stage.creatures.get(i).vx, 0);
+						c.move(-c.vx, 0);
+						//stage.creatures.get(i).move(-(int)(1 + stage.creatures.get(i).hold) * stage.creatures.get(i).vx, 0);
 									
 						// Break for loop
 						j=stage.blocks.size();
@@ -394,9 +409,13 @@ public class Game implements Runnable {
 				{
 					if(Sprite.collides(stage.sprites.get(i), stage.blocks.get(j)))
 					{
-						stage.sprites.get(i).move(0, -stage.sprites.get(i).vy);
+						//stage.sprites.get(i).move(0, -stage.sprites.get(i).vy);
 						
-						stage.sprites.get(i).vy = 0;
+						if(stage.sprites.get(i).vy > 0) {
+							stage.sprites.get(i).vy *= -0.33;
+						} else {
+							stage.sprites.get(i).vy *= 0.88;
+						}
 						
 						// Break for loop
 						j=stage.blocks.size();
@@ -578,10 +597,12 @@ public class Game implements Runnable {
 		
 		g.drawString("Grains: " + stage.player.getBread(), 3*padding + this.width/widthRatio, padding + 15);
 		
+		g.drawString("Jumps left: " + (5-stage.player.jumpsInARow), 3*padding + this.width/widthRatio, padding + 30);
+		
 		if(stage.player.boostTime>0)
 		{
-			g.drawImage(Assets.boost, padding, padding + 30, null);
-			g.drawString(stage.player.boostTime/60+"", padding + 28, padding + 47);
+			g.drawImage(Assets.boost, padding, padding + 40, null);
+			g.drawString(stage.player.boostTime/60+"", padding + 28, padding + 57);
 		}
 		
 		//System.out.println(camerawindow.width +","+ camerawindow.height);
