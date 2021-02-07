@@ -13,8 +13,8 @@ public class Fox extends WalkingEnemy {
 	private static double accuracy = 0.60;
 	private static int speed = 20;
 	
-	private static int minGrain = 6;
-	private static int maxGrain = 16;
+	private static int minGrain = 1;
+	private static int maxGrain = 1;
 	private static final double specialDropChance = 0.05;
 
 	// Constructor Methods

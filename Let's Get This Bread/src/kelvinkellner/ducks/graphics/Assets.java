@@ -39,6 +39,8 @@ public class Assets {
 	public static Animation breadDrop = SpriteSheet.createAnimation("BreadDrop", 6000);
 	public static Animation breadDropFalling = SpriteSheet.createAnimation("BreadDropFalling", 60);
 	
+	public static Animation bread = SpriteSheet.createAnimation("Bread", 6000);
+	
 	// Items
 	public static Animation omega3FishOil = SpriteSheet.createAnimation("Omega3FishOil", 6000);
 	public static Animation duckNip = SpriteSheet.createAnimation("DuckNip", 6000);

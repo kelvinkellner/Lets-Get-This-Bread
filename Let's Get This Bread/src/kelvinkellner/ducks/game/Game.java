@@ -506,10 +506,11 @@ public class Game implements Runnable {
 		{
 			if(stage.items.get(i).type == "Bread")
 			{
-				if(stage.items.get(i).vy == 0)
-					renderAnySprite(g, stage.items.get(i), Assets.breadDrop);
-				else
-					renderAnySprite(g, stage.items.get(i), Assets.breadDropFalling);
+				renderAnySprite(g, stage.items.get(i), Assets.bread);
+//				if(stage.items.get(i).vy == 0)
+//					renderAnySprite(g, stage.items.get(i), Assets.breadDrop);
+//				else
+//					renderAnySprite(g, stage.items.get(i), Assets.breadDropFalling);
 			}
 			else if(stage.items.get(i).type == "Omega3FishOil")
 				renderAnySprite(g, stage.items.get(i), Assets.omega3FishOil);
