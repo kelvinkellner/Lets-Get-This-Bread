@@ -52,7 +52,7 @@ public class Input implements KeyListener {
 				}
 				else if(e.getKeyCode() == ATTACK)
 				{
-					int maxFrame = 24;
+					int maxFrame = 25;
 					if(player.attackFrames == 0)
 					{
 						player.attacking = true;

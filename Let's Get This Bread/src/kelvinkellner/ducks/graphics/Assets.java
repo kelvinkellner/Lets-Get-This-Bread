@@ -18,9 +18,21 @@ public class Assets {
 	public static Animation duckAttackLeft = SpriteSheet.createAnimation("DuckAttackLeft", 5);
 	
 	// Fox
+	public static Animation foxIdleRight = SpriteSheet.createAnimation("FoxIdleRight", 15);
+	public static Animation foxIdleLeft = SpriteSheet.createAnimation("FoxIdleLeft", 15);
+	
+	public static Animation foxRight = SpriteSheet.createAnimation("FoxRight", 5);
+	public static Animation foxLeft = SpriteSheet.createAnimation("FoxLeft", 5);
+	
+	public static Animation foxJumpRight = SpriteSheet.createAnimation("FoxJumpRight", 5);
+	public static Animation foxJumpLeft = SpriteSheet.createAnimation("FoxJumpLeft", 5);
+	
+	public static Animation foxAttackRight = SpriteSheet.createAnimation("FoxAttackRight", 5);
+	public static Animation foxAttackLeft = SpriteSheet.createAnimation("FoxAttackLeft", 5);
+	
+	// Creatures
 	public static Animation crocodile = SpriteSheet.createAnimation("test", 60);
 	public static Animation eagle = SpriteSheet.createAnimation("test", 60);
-	public static Animation fox = SpriteSheet.createAnimation("test", 60);
 	public static Animation turtle = SpriteSheet.createAnimation("test", 60);
 	
 	// Bread

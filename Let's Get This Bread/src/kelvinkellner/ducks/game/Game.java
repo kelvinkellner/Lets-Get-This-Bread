@@ -12,6 +12,7 @@ import kelvinkellner.ducks.graphics.Assets;
 import kelvinkellner.ducks.sprites.Block;
 import kelvinkellner.ducks.sprites.Sprite;
 import kelvinkellner.ducks.sprites.creatures.Creature;
+import kelvinkellner.ducks.sprites.creatures.Enemy;
 import kelvinkellner.ducks.sprites.items.Bread;
 import kelvinkellner.ducks.sprites.items.HealingBerry;
 import kelvinkellner.ducks.sprites.items.Omega3FishOil;
@@ -322,8 +323,10 @@ public class Game implements Runnable {
 				if(Math.abs(stage.player.getBounds().getX() - stage.enemies.get(i).getBounds().getX()) < 128)
 				{
 					// Calculate chance of attacking
-					if(stage.enemies.get(i).getAccuracy() / 30.0 > Math.random())
+					if(stage.enemies.get(i).getAccuracy() / 30.0 > Math.random()) {
 						stage.enemies.get(i).attacking = true;
+						stage.enemies.get(i).attackFrames = 25;
+					}
 					else
 						stage.enemies.get(i).attacking = false;
 					
@@ -553,10 +556,47 @@ public class Game implements Runnable {
 			}
 		}
 		
+		// Render enemies
 		for(int i=0;i<stage.enemies.size();i++)
 		{
-			if(stage.enemies.get(i).type == "Fox")
-				renderAnySprite(g, stage.enemies.get(i), Assets.fox);
+			String type;
+			Enemy e = stage.enemies.get(i);
+			
+			// Find enemy type
+			if(stage.enemies.get(i).type == "Fox") {
+				if(e.attackFrames > 0)
+				{
+					if(e.facing == 1)
+						renderAnySprite(g, e, Assets.foxAttackRight);
+					else
+						renderAnySprite(g, e, Assets.foxAttackLeft);
+					e.attackFrames--;
+				}
+				else
+				{
+					if(e.vy==0)
+					{
+						if(e.vx == 0)
+						{
+							if(e.facing == 1)
+								renderAnySprite(g, e, Assets.foxIdleRight);
+							else
+								renderAnySprite(g, e, Assets.foxIdleLeft);
+						}
+						else if(e.vx > 0)
+							renderAnySprite(g, e, Assets.foxRight);
+						else if(e.vx < 0)
+							renderAnySprite(g, e, Assets.foxLeft);
+					}
+					else
+					{
+						if(e.facing == 1)
+							renderAnySprite(g, e, Assets.foxJumpRight);
+						else
+							renderAnySprite(g, e, Assets.foxJumpLeft);
+					}
+				}
+			}
 			/*
 			else if(stage.enemies.get(i).type == "Eagle")
 				renderAnySprite(g, stage.enemies.get(i), Assets.fox);
